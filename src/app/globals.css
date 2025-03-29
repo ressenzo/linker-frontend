@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* TODO: research a better way to define the values below */
+/*
+main color: green-700
+secondary color: green-800
+error color: red-500
+*/
