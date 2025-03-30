@@ -1,11 +1,18 @@
-import { Input } from "@/components/ui";
-import { useState } from "react";
+import { InputEmail, InputPassword, MainButton } from "@/components/ui";
+import { useEffect, useState } from "react";
 
 export default function SignUp() {
     const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [hasError, setHasError] = useState<boolean>(false);
 
-
+    useEffect(() => {
+        if (password.length > 0 && confirmPassword.length > 0 && password !== confirmPassword) {
+            setHasError(true)
+        } else {
+            setHasError(false)
+        }
+    }, [password, confirmPassword])
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -25,7 +32,7 @@ export default function SignUp() {
                             Email address
                         </label>
                         <div className="mt-2">
-                            <Input
+                            <InputEmail
                                 hasError={hasError}
                             />
                         </div>
@@ -38,50 +45,40 @@ export default function SignUp() {
                             </label>
                         </div>
                         <div className="mt-2">
-                            <input
+                            <InputPassword
                                 id="password"
                                 name="password"
-                                type="password"
-                                required
+                                hasError={hasError}
                                 onChange={(e) => setPassword(e.target.value)}
-                                autoComplete="current-password"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
                             />
                         </div>
                     </div>
 
                     <div>
                         <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+                            <label htmlFor="confirm-password" className="block text-sm/6 font-medium text-gray-900">
                                 Repeat password
                             </label>
                         </div>
                         <div className="mt-2">
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                required
-                                autoComplete="current-password"
-                                onChange={(e) => {
-                                    if (e.target.value.length > 0 && password.length > 0 && e.target.value != password) {
-                                        setHasError(true);
-                                    } else if (e.target.value.length > 0 && password.length > 0 && e.target.value == password) {
-                                        setHasError(false);
-                                    }
-                                }}
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-700 sm:text-sm/6"
+                            <InputPassword
+                                id="confirm-password"
+                                name="confirm-password"
+                                hasError={hasError}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
                             />
+                        </div>
+                        <div className="text-red-500">
+                            {hasError ? "Passwords are not the same" : null}
                         </div>
                     </div>
 
+
                     <div>
-                        <button
-                            type="submit"
-                            className="cursor-pointer flex w-full justify-center rounded-md bg-green-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Sign in
-                        </button>
+                        <MainButton
+                            text="Sign up"
+                            disabled={hasError}
+                        />
                     </div>
                 </form>
 
