@@ -83,9 +83,9 @@ export default function SignUp() {
                 </form>
 
                 <p className="mt-10 text-center text-sm/6 text-gray-500">
-                    Not a member?{' '}
-                    <a href="#" className="font-semibold text-green-700 hover:text-green-800">
-                        Sign up
+                    Go to{' '}
+                    <a href="/login" className="font-semibold text-green-700 hover:text-green-800">
+                        Login
                     </a>
                 </p>
             </div>
